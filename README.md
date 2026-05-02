@@ -2,69 +2,88 @@
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange)
 ![Streamlit](https://img.shields.io/badge/Streamlit-app-red)
 ![License](https://img.shields.io/badge/License-MIT-green)
-# AlzIA: Aplicación Web para Predicción de Demencia Usando EEG
 
-## Descripción
-AlzIA es una aplicación web desarrollada con Streamlit que utiliza un modelo de deep learning multi-task (basado en TensorFlow/Keras) para predecir el grupo de demencia (e.g., Control, Alzheimer, etc.) y el puntaje MMSE a partir de datos EEG. Soporta carga de archivos EEG en formato .set (EEGLAB) o CSV con features pre-extraídas, preprocesamiento automático, extracción de features espectrales (powers absolutos/relativos, entropy, ratios de bandas), predicciones con intervalos de confianza via bootstrap, y generación de reportes en PDF.
+# AlzIA: Web Application for Dementia Prediction Using EEG
+ 
+## Description
+AlzIA is a web application built with Streamlit that uses a multi-task deep learning model (based on TensorFlow/Keras) to predict the dementia group (e.g., Control, Alzheimer, etc.) and the MMSE score from EEG data. It supports loading EEG files in .set (EEGLAB) or CSV format with pre-extracted features, automatic preprocessing, spectral feature extraction (absolute/relative powers, entropy, band ratios), predictions with confidence intervals via bootstrap resampling, and PDF report generation.
+ 
+This app is designed to be a precise and efficient prototype, with an emphasis on modularity, error handling, and logging for debugging. Based on an original script (`alz_ia_v3.py`), it focuses on medical/engineering accuracy, but is not a substitute for professional clinical diagnosis.
+ 
+## Objectives
+- Provide an intuitive interface for loading and analyzing EEG/CSV data.
+- Perform multi-task predictions: dementia group classification and MMSE score regression.
+- Incorporate confidence metrics (e.g., intervals via bootstrap resampling).
+- Generate downloadable PDF reports with results, inputs, and visualizations.
+- Ensure compatibility with standard EEG channels (10-20 system, minimum 19 channels).
+- Maintain modular and extensible code for future expansions (e.g., more features or models).
+## Main Features
+- **File Loading**: Support for .set (EEGLAB) or .csv (pre-extracted features). Automatic channel and format validation.
+- **Additional Inputs**: Age, gender, subject name (encoded with LabelEncoder).
+- **Preprocessing & Features**: Bandpass filtering, PSD extraction (Welch), powers per band (delta, theta, alpha, beta, gamma), entropy, ratios (e.g., theta/alpha).
+- **Prediction**: Multi-task DNN model loaded from `assets/`. Bootstrap predictions for robustness.
+- **Results**: In-app visualization (group, MMSE, CI, metrics) and PDF download with tables and graphs.
+- **Security & Cleanup**: Temporary file handling, automatic post-processing deletion.
+- **Logging**: Detailed records for debugging.
+## Technical Specifications
+- **Main Framework**: Streamlit for the web UI.
+- **Model**: Multi-task DNN (classification + regression), loaded from `dementia_model.keras`.
+- **Dependencies**: See `requirements.txt` (includes TensorFlow, MNE, Pandas, NumPy, Matplotlib, Scikit-learn, Joblib, ReportLab).
+- **Supported Formats**: EEG .set with 10-20 channels (e.g., Fp1, Cz); CSV with columns matching `feature_names.json`.
+- **Environment**: Python 3.8+; recommended to use venv/conda. GPU not supported by default (adjust TensorFlow if needed).
+- **Limitations**: Assumes sfreq=250 Hz for EEG; does not handle advanced artifacts (e.g., ICA); for investigative use only, not clinical.
 
-Esta app está diseñada para ser un prototipo preciso y eficiente, con énfasis en modularidad, manejo de errores y logging para depuración. Basada en un script original (`alz_ia_v3.py`), se enfoca en precisión médica/ingenieril, pero no es un sustituto de diagnósticos profesionales.
-
-## Objetivos
-- Proporcionar una interfaz intuitiva para cargar y analizar datos EEG/CSV.
-- Realizar predicciones multi-task: clasificación de grupo de demencia y regresión de puntaje MMSE.
-- Incorporar métricas de confianza (e.g., intervalos via bootstrap resampling).
-- Generar reportes descargables en PDF con resultados, inputs y visualizaciones.
-- Asegurar compatibilidad con canales EEG estándar (sistema 10-20, mínimo 19 canales).
-- Mantener código modular y extensible para futuras expansiones (e.g., más features o modelos).
-
-## Funcionalidades Principales
-- **Carga de Archivos**: Soporte para .set (EEGLAB) o .csv (features pre-extraídas). Validación automática de canales y formatos.
-- **Inputs Adicionales**: Edad, género, nombre del sujeto (codificado con LabelEncoder).
-- **Preprocesamiento y Features**: Filtrado bandpass, extracción de PSD (Welch), powers por banda (delta, theta, alpha, beta, gamma), entropy, ratios (e.g., theta/alpha).
-- **Predicción**: Uso de modelo .h5 cargado desde assets/. Predicciones con bootstrap para robustez.
-- **Resultados**: Visualización en app (grupo, MMSE, IC, métricas) y descarga de PDF con tablas y gráficos.
-- **Seguridad y Limpieza**: Manejo temporal de archivos, eliminación automática post-procesamiento.
-- **Logging**: Registros detallados para depuración.
-
-## Especificaciones Técnicas
-- **Framework Principal**: Streamlit para la UI web.
-- **Modelo**: Multi-task DNN (clasificación + regresión), cargado desde `dementia_model.h5`.
-- **Dependencias**: Ver `requirements.txt` (incluye TensorFlow, MNE, Pandas, NumPy, Matplotlib, Scikit-learn, Joblib, ReportLab).
-- **Formatos Soportados**: EEG .set con canales 10-20 (e.g., Fp1, Cz); CSV con columnas matching `feature_names.json`.
-- **Entorno**: Python 3.8+; recomendado usar venv/conda. No soporta GPU por default (ajusta TensorFlow si es necesario).
-- **Limitaciones**: Asume sfreq=250 Hz para EEG; no maneja artifacts avanzados (e.g., ICA); para uso investigativo, no clínico.
-
-## Instalación
-1. Clona el repositorio (si aplica) o crea la estructura de directorios:
-
+## Installation
+ 
 ```bash
 git clone https://github.com/JOMO67/alz_ai_v3
 cd alz_ai_v3
+ 
+# On Linux/Mac:
 python -m venv venv && source venv/bin/activate
+ 
+# On Windows:
+python -m venv venv
+venv\Scripts\activate
+ 
 pip install -r requirements.txt
 streamlit run app.py
 ```
-
+ 
 <img width="1908" height="915" alt="web" src="https://github.com/user-attachments/assets/f069eb6a-c77f-45ba-be45-bcf842221362" />
-
-
-## Resultados
-
-El modelo fue evaluado mediante bootstrap resampling (IC 95%) sobre el conjunto de test.
-
-### Clasificación (grupo de demencia)
-| Métrica | Valor | IC 95% |
+## Usage
+ 
+1. Launch the app with `streamlit run app.py`
+2. Open your browser at `http://localhost:8501`
+3. Upload your EEG file in `.set` (EEGLAB) or `.csv` format with pre-extracted features
+4. Enter the subject data: age, gender, and name
+5. Click **Predict** and wait for the analysis
+6. Review the results: predicted dementia group, estimated MMSE score, and confidence intervals
+7. Download the PDF report with all results and visualizations
+### Accepted input formats
+ 
+**EEG .set file (raw):**
+- 10-20 electrode system, minimum 19 channels (Fp1, Cz, etc.)
+- Sampling frequency: 250 Hz
+**CSV file (pre-extracted features):**
+- Columns must match `assets/feature_names.json`
+## Results
+ 
+The model was evaluated using bootstrap resampling (95% CI) on the test set.
+ 
+### Classification (dementia group)
+| Metric | Value | 95% CI |
 |---|---|---|
 | Accuracy | ~95.8% | [95.5%, 96.2%] |
-
-<img width="750" height="500" alt="Captura de pantalla 2026-05-02 180757" src="https://github.com/user-attachments/assets/1a93c834-6ba8-49cf-a8e4-9b6b371ff4fe" />
-
-
-### Regresión (score MMSE)
-| Métrica | Valor | IC 95% |
+ 
+<img width="750" height="500" alt="Training curves" src="https://github.com/user-attachments/assets/1a93c834-6ba8-49cf-a8e4-9b6b371ff4fe" />
+### Regression (MMSE score)
+| Metric | Value | 95% CI |
 |---|---|---|
 | R² | 0.895 | [0.880, 0.905] |
 | MAE | 1.40 | [1.37, 1.43] |
 | RMSE | 2.01 | [1.95, 2.10] |
-
-<img width="750" height="500" alt="%BOOT" src="https://github.com/user-attachments/assets/142d5f3f-5a95-4a4d-ae3c-09d41a788f48" />
+ 
+Training curves show stable convergence without overfitting in both tasks.
+ 
+<img width="750" height="500" alt="Bootstrap metrics" src="https://github.com/user-attachments/assets/142d5f3f-5a95-4a4d-ae3c-09d41a788f48" />
