@@ -77,6 +77,7 @@ The model was evaluated using bootstrap resampling (95% CI) on the test set.
 | Accuracy | ~95.8% | [95.5%, 96.2%] |
  
 <img width="750" height="500" alt="Training curves" src="https://github.com/user-attachments/assets/1a93c834-6ba8-49cf-a8e4-9b6b371ff4fe" />
+
 ### Regression (MMSE score)
 | Metric | Value | 95% CI |
 |---|---|---|
