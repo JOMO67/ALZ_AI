@@ -44,3 +44,23 @@ streamlit run app.py
 <img width="1908" height="915" alt="web" src="https://github.com/user-attachments/assets/f069eb6a-c77f-45ba-be45-bcf842221362" />
 
 
+## Resultados
+
+El modelo fue evaluado mediante bootstrap resampling (IC 95%) sobre el conjunto de test.
+
+### Clasificación (grupo de demencia)
+| Métrica | Valor | IC 95% |
+|---|---|---|
+| Accuracy | ~95.8% | [95.5%, 96.2%] |
+
+<img width="750" height="500" alt="Captura de pantalla 2026-05-02 180757" src="https://github.com/user-attachments/assets/1a93c834-6ba8-49cf-a8e4-9b6b371ff4fe" />
+
+
+### Regresión (score MMSE)
+| Métrica | Valor | IC 95% |
+|---|---|---|
+| R² | 0.895 | [0.880, 0.905] |
+| MAE | 1.40 | [1.37, 1.43] |
+| RMSE | 2.01 | [1.95, 2.10] |
+
+<img width="750" height="500" alt="%BOOT" src="https://github.com/user-attachments/assets/142d5f3f-5a95-4a4d-ae3c-09d41a788f48" />
