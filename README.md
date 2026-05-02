@@ -60,7 +60,6 @@ streamlit run app.py
 4. Enter the subject data: age, gender, and name
 5. Click **Predict** and wait for the analysis
 6. Review the results: predicted dementia group, estimated MMSE score, and confidence intervals
-7. Download the PDF report with all results and visualizations
    
 
 ### Accepted input formats
