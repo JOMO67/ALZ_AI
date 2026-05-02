@@ -51,6 +51,7 @@ streamlit run app.py
 ```
  
 <img width="1908" height="915" alt="web" src="https://github.com/user-attachments/assets/f069eb6a-c77f-45ba-be45-bcf842221362" />
+
 ## Usage
  
 1. Launch the app with `streamlit run app.py`
@@ -60,6 +61,8 @@ streamlit run app.py
 5. Click **Predict** and wait for the analysis
 6. Review the results: predicted dementia group, estimated MMSE score, and confidence intervals
 7. Download the PDF report with all results and visualizations
+   
+
 ### Accepted input formats
  
 **EEG .set file (raw):**
@@ -67,9 +70,7 @@ streamlit run app.py
 - Sampling frequency: 250 Hz
 **CSV file (pre-extracted features):**
 - Columns must match `assets/feature_names.json`
-## Results
- 
-The model was evaluated using bootstrap resampling (95% CI) on the test set.
+
  
 ### Classification (dementia group)
 | Metric | Value | 95% CI |
