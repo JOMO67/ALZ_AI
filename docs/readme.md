@@ -32,3 +32,12 @@ Esta app está diseñada para ser un prototipo preciso y eficiente, con énfasis
 
 ## Instalación
 1. Clona el repositorio (si aplica) o crea la estructura de directorios:
+
+  git clone https://github.com/JOMO67/alz_ai_v3
+cd alz_ai_v3
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+streamlit run app.py
+<img width="1908" height="915" alt="web" src="https://github.com/user-attachments/assets/f069eb6a-c77f-45ba-be45-bcf842221362" />
+
+
